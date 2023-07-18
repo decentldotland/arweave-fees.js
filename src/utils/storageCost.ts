@@ -1,11 +1,10 @@
 import {
   getTxRewardsFromSize,
   getArPrice,
-  _checkTxObject,
-  arweave,
+  _checkTxObject
 } from "./arweave";
 import { converstionToBytes } from "./constants";
-import { IStorageUnits } from "./types";
+import { IStorageUnits } from "../types";
 
 export async function storageCostTable(): Promise<IStorageUnits> {
   const def = { winston: 0, ar: 0, usd: 0 };
@@ -31,22 +30,9 @@ export async function storageCostTable(): Promise<IStorageUnits> {
   return table;
 }
 
-export async function canUserUpload({ txObj = { owner: '', reward: 0 } }) {
+export async function canUserUpload() {
   try {
-    await _checkTxObject(txObj);
-    const oneArPrice = await getArPrice();
-
-    const address = await arweave.wallets.ownerToAddress(txObj.owner);
-    const balance = Number(await arweave.wallets.getBalance(address));
-
-    return {
-      canUpload: balance >= Number(txObj.reward) ? true : false,
-      balanceWinstonBefore: balance,
-      balanceWinstonAfter: balance - Number(txObj.reward),
-      costInWinston: Number(txObj.reward),
-      costInAr: Number(txObj.reward) * 1e-12,
-      costInUsd: Number(txObj.reward) * 1e-12 * oneArPrice,
-    };
+    return {}
   } catch (error) {
     console.log(error);
     return {}

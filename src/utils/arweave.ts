@@ -1,18 +1,9 @@
-import Arweave from "arweave";
 import axios from "axios";
-import redstone from "redstone-api";
 import { ARWEAVE_GATEWAY } from "./constants";
-
-export const arweave = Arweave.init({
-  host: "arweave.net",
-  port: 443,
-  protocol: "https",
-  timeout: 60000,
-});
 
 export async function getArPrice() {
   try {
-    const priceFromRedstone = (await redstone.getPrice("AR")).value;
+    const priceFromRedstone = (await axios.get("https://api.redstone.finance/prices?symbol=AR&provider=redstone&limit=1")).data[0].value;
     const price = priceFromRedstone
       ? priceFromRedstone
       : await ArPriceCoingecko();
