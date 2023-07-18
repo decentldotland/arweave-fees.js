@@ -1,23 +1,37 @@
 {
+  "version": "0.1.0",
   "name": "arweave-fees.js",
-  "version": "0.0.3",
-  "type": "module",
   "description": "Arweave gas (winston) utils repo",
-  "main": "./src/app.js",
-  "scripts": {
-    "start": "node ./src/app.js"
-  },
+  "author": "charmful0x @ Decent Land Labs",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Parallel-news/arweave-fees.js.git"
+    "url": "git+https://github.com/decentldotland/arweave-fees.js.git"
   },
   "keywords": ["arweave", "gas", "utils"],
-  "author": "charmful0x",
-  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Parallel-news/arweave-fees.js/issues"
+    "url": "https://github.com/decentldotland/arweave-fees.js/issues"
   },
-  "homepage": "https://github.com/Parallel-news/arweave-fees.js#readme",
+  "homepage": "https://github.com/decentldotland/arweave-fees.js#readme",
+  "scripts": {
+    "start": "vite watch",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "tslib": "2.5.3",
+    "typescript": "5.1.3",
+    "vite": "^4.3.9",
+    "vite-plugin-dts": "^2.3.0"
+  },
   "dependencies": {
     "arweave": "^1.10.23",
     "axios": "^0.27.2",

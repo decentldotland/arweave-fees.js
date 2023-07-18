@@ -3,12 +3,15 @@ import {
   getArPrice,
   _checkTxObject,
   arweave,
-} from "./arweave.js";
-import { converstionToBytes } from "./constants.js";
+} from "./arweave";
+import { converstionToBytes } from "./constants";
+import { IStorageUnits } from "./types";
 
-export async function storageCostTable() {
+export async function storageCostTable(): Promise<IStorageUnits> {
+  const def = { winston: 0, ar: 0, usd: 0 };
+  const table: IStorageUnits = { KB: def, MB: def, GB: def, TB: def, PT: def };
+
   try {
-    const table = {};
     // 256 KiB
     const MinStorageSizeCost = await getTxRewardsFromSize(1024 * 256);
     const oneArPrice = await getArPrice();
@@ -22,14 +25,13 @@ export async function storageCostTable() {
         usd: winston * 1e-12 * oneArPrice,
       };
     }
-
-    return table;
   } catch (error) {
     console.log(error);
   }
+  return table;
 }
 
-export async function canUserUpload({ txObj = {} }) {
+export async function canUserUpload({ txObj = { owner: '', reward: 0 } }) {
   try {
     await _checkTxObject(txObj);
     const oneArPrice = await getArPrice();
@@ -47,10 +49,11 @@ export async function canUserUpload({ txObj = {} }) {
     };
   } catch (error) {
     console.log(error);
+    return {}
   }
 }
 
-export async function canUploadUpTo(winstons) {
+export async function canUploadUpTo(winstons: number) {
   try {
     if (!winstons || !Number.isInteger(winstons) || winstons <= 0) {
       return 0;

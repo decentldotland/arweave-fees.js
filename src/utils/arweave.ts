@@ -1,7 +1,7 @@
 import Arweave from "arweave";
 import axios from "axios";
 import redstone from "redstone-api";
-import { ARWEAVE_GATEWAY } from "./constants.js";
+import { ARWEAVE_GATEWAY } from "./constants";
 
 export const arweave = Arweave.init({
   host: "arweave.net",
@@ -22,7 +22,7 @@ export async function getArPrice() {
   }
 }
 
-export async function getTxRewardsFromSize(byteSize) {
+export async function getTxRewardsFromSize(byteSize: number) {
   try {
     const winstons = (await axios.get(`${ARWEAVE_GATEWAY}/price/${byteSize}`))
       .data;
@@ -34,7 +34,7 @@ export async function getTxRewardsFromSize(byteSize) {
 
 // HELPER FUNCTIONS
 
-export async function _checkTxObject(txObj) {
+export async function _checkTxObject(txObj: any) {
   try {
     const requiredKeys = [
       "format",

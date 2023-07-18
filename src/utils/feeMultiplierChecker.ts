@@ -1,6 +1,6 @@
-import { getTxRewardsFromSize, _checkTxObject } from "./arweave.js";
+import { getTxRewardsFromSize, _checkTxObject } from "./arweave";
 
-export async function checkFeeMultiplier({ txObj = {}, feeMultiplier = 1 }) {
+export async function checkFeeMultiplier({ txObj = { data_size: 0, reward: 0 }, feeMultiplier = 1 }) {
   try {
 
     await _checkTxObject(txObj);
@@ -19,4 +19,5 @@ export async function checkFeeMultiplier({ txObj = {}, feeMultiplier = 1 }) {
   } catch (error) {
     console.log(error);
   }
+  return txObj;
 }
